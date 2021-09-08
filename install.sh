@@ -1,16 +1,7 @@
 #!/bin/bash
 
 DEBIAN_FRONTEND=noninteractive sudo apt --yes update
-DEBIAN_FRONTEND=noninteractive sudo apt --yes build-dep fzy
-
-mkdir ~/build
-cd ~/build
-
-git clone https://github.com/jhawthorn/fzy.git
-cd fzy
-cp ~/dotfiles/fzy_multiselect.diff .
-patch -p1 < fzy_multiselect.diff
-make && sudo make install
+DEBIAN_FRONTEND=noninteractive sudo apt --yes install fzf
 
 cp ~/dotfiles/.tmux.conf ~
 
@@ -21,7 +12,7 @@ alias git-clean-all="git clean -f -x -d"
 alias git-push-upstream="git push --set-upstream origin master"
 
 gitf() {
-    file=$(git status -s | fzy -l 40)
+    file=$(git status -s | fzf -m)
 
     if [ $? -eq 0 ]; then
         git $* $(echo "$file" | sed -E 's/^.. (.+)$/\1/')
@@ -29,7 +20,7 @@ gitf() {
 }
 
 gitb() {
-    branch=$(git branch --sort=-committerdate | fzy -l 40)
+    branch=$(git branch --sort=-committerdate | fzf -m)
 
     if [ $? -eq 0 ]; then
         git $* $(echo "$branch" | sed -E 's/^\s*(.*)\s*$/\1/')
