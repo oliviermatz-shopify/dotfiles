@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DEBIAN_FRONTEND=noninteractive sudo apt --yes update
-DEBIAN_FRONTEND=noninteractive sudo apt --yes install fzf
+DEBIAN_FRONTEND=noninteractive sudo apt --yes install fzf lsof
 
 cp ~/dotfiles/.tmux.conf ~
 
