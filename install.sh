@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DEBIAN_FRONTEND=noninteractive sudo apt --yes update
-DEBIAN_FRONTEND=noninteractive sudo apt --yes install fzf lsof
+DEBIAN_FRONTEND=noninteractive sudo apt --yes install lsof ripgrep
 
 cp ~/dotfiles/.tmux.conf ~
 
@@ -29,3 +29,9 @@ gitb() {
 
 set -o emacs
 EOF
+
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install --all
